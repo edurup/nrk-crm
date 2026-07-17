@@ -2,29 +2,33 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL:"http://localhost:3001/api"
+  baseURL:
+    process.env.NEXT_PUBLIC_BACKEND_URL ||
+    "http://localhost:3001/api"
 });
 
 
 // attach token automatically
+// attach token automatically
 api.interceptors.request.use(
-    (config)=>{
+  (config) => {
 
-        const token = localStorage.getItem("crmToken");
+    if (typeof window !== "undefined") {
 
-        if(token){
+      const token = localStorage.getItem("crmToken");
 
-            config.headers.Authorization =
-            `Bearer ${token}`;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
 
-        }
-
-        return config;
-
-    },
-    (error)=>{
-        return Promise.reject(error);
     }
+
+    return config;
+
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 
