@@ -1,0 +1,181 @@
+import axios from "axios";
+
+
+const api = axios.create({
+    baseURL:"http://localhost:3001/api"
+});
+
+
+// attach token automatically
+api.interceptors.request.use(
+    (config)=>{
+
+        const token = localStorage.getItem("crmToken");
+
+        if(token){
+
+            config.headers.Authorization =
+            `Bearer ${token}`;
+
+        }
+
+        return config;
+
+    },
+    (error)=>{
+        return Promise.reject(error);
+    }
+);
+
+
+
+export const getLeads = async () => {
+
+    const response = await api.get(
+        "/crm/leads"
+    );
+
+    return response.data;
+
+};
+
+
+export const loginCRM = async(
+    email:string,
+    password:string
+)=>{
+
+    const response = await api.post(
+        "/crm/auth/login",
+        {
+            email,
+            password
+        }
+    );
+
+
+    return response.data;
+
+};
+
+export const updateLeadStatus = async (
+    id: string,
+    status: string
+  ) => {
+    const response = await api.patch(`/crm/leads/${id}/status`, {
+      status,
+    });
+  
+    return response.data;
+  };
+
+  export const updateLeadAssignment = async (
+    id: string,
+    assignedTo: string
+  ) => {
+    const response = await api.patch(`/crm/leads/${id}/assign`, {
+      assignedTo,
+    });
+  
+    return response.data;
+  };
+
+  export const createLead = async (leadData:any) => {
+    const response = await api.post(
+      "/crm/leads",
+      leadData
+    );
+  
+    return response.data;
+  };
+
+  // Google Integration APIs
+
+export const getGoogleIntegration = async () => {
+  const response = await api.get("/crm/integrations/google");
+  return response.data;
+};
+
+export const getGoogleConnectUrl = async () => {
+  const response = await api.get("/crm/integrations/google/connect");
+  return response.data;
+};
+
+export const getGoogleSheets = async () => {
+  const response = await api.get("/crm/integrations/google/sheets");
+  return response.data;
+};
+
+export const getGoogleWorksheets = async (
+  spreadsheetId: string
+) => {
+  const response = await api.get(
+    `/crm/integrations/google/worksheets/${spreadsheetId}`
+  );
+
+  return response.data;
+};
+
+export default api;
+
+export const previewGoogleSheet = async (
+  spreadsheetId: string,
+  worksheetName: string
+) => {
+  const response = await api.get(
+    "/crm/integrations/google/preview",
+    {
+      params: {
+        spreadsheetId,
+        worksheetName,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const saveGoogleConfiguration = async (data: {
+  spreadsheetId: string;
+  spreadsheetName: string;
+  worksheetName: string;
+}) => {
+  const response = await api.patch(
+    "/crm/integrations/google/config",
+    data
+  );
+
+  return response.data;
+};
+
+export const importGoogleLeads = async () => {
+  const response = await api.post(
+    "/crm/integrations/google/import"
+  );
+
+  return response.data;
+};
+
+export const getImportedSheets = async () => {
+  const response = await api.get(
+    "/crm/integrations/google/imported-sheets"
+  );
+
+  return response.data;
+};
+
+export const getImportedSheet = async (id: string) => {
+  const { data } = await api.get(
+    `/crm/integrations/google/imported-sheets/${id}`
+  );
+
+  return data;
+};
+
+export const deleteImportedSheet = async (id: string) => {
+  const { data } = await api.delete(
+    `/crm/integrations/google/imported-sheets/${id}`
+  );
+
+  return data;
+};
