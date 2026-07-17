@@ -24,7 +24,11 @@ export default function CRMLoginPage(){
 
             setLoading(true);
 
-
+            console.log(
+                "API URL:",
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/crm/auth/login`
+              );
+              
             const res = await axios.post(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/crm/auth/login`,
                 {
