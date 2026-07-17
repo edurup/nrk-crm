@@ -26,7 +26,7 @@ export default function CRMLoginPage(){
 
 
             const res = await axios.post(
-                "http://localhost:3001/api/crm/auth/login",
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/crm/auth/login`,
                 {
                     email,
                     password
