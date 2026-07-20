@@ -23,6 +23,19 @@ export default function AddLeadModal({
         leadType: "Manual",
         assignedTo: "Unassigned",
         status: "New Lead",
+        dob: "",
+        gender: "",
+        city: "",
+        state: "",
+        pincode: "",
+        address: "",
+        qualification: "",
+        college: "",
+        passingYear: "",
+        percentage: "",
+        batchPreference: "",
+        paymentOption: "",
+        agree: false,
     });
 
 
@@ -65,103 +78,189 @@ export default function AddLeadModal({
 
   return (
 
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
 
 
-      <div className="bg-white w-[500px] rounded-2xl p-6 shadow-xl">
+      <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl p-6 shadow-xl overflow-y-auto">
 
 
-        <h2 className="text-xl font-bold mb-5">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">
           Add New Lead
         </h2>
 
 
-        <div className="space-y-4">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           <input
             name="fullName"
             placeholder="Full Name"
             value={form.fullName}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
           />
 
+          <input
+            name="phoneNumber"
+            placeholder="Mobile Number"
+            value={form.phoneNumber}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
           <input
             name="email"
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
           />
-
 
           <input
-            name="phoneNumber"
-            placeholder="Phone Number"
-            value={form.phoneNumber}
+            name="dob"
+            type="date"
+            placeholder="Date of Birth"
+            value={form.dob}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
           />
 
+          <select
+            name="gender"
+            value={form.gender}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
 
-<select
-  name="courseName"
-  value={form.courseName}
-  onChange={handleChange}
-  className="w-full border rounded-lg px-4 py-2"
->
+          <input
+            name="city"
+            placeholder="City"
+            value={form.city}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
-  <option value="">
-    Select Course
-  </option>
+          <input
+            name="state"
+            placeholder="State"
+            value={form.state}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
-  <option value="Data Analytics">
-    Data Analytics
-  </option>
+          <input
+            name="pincode"
+            placeholder="Pincode"
+            value={form.pincode}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
-  <option value="MERN Stack Development">
-    Data Science
-  </option>
+          <input
+            name="address"
+            placeholder="Address"
+            value={form.address}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all md:col-span-2"
+          />
 
-  <option value="Digital Marketing">
-    Digital Marketing
-  </option>
+          <input
+            name="qualification"
+            placeholder="Qualification"
+            value={form.qualification}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
-  <option value="Digital Marketing">
-    Full Stack Developer
-  </option>
+          <input
+            name="college"
+            placeholder="College"
+            value={form.college}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
+          <input
+            name="passingYear"
+            placeholder="Passing Year"
+            value={form.passingYear}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
-</select>
+          <input
+            name="percentage"
+            placeholder="Percentage"
+            value={form.percentage}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
 
+          <select
+            name="courseName"
+            value={form.courseName}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Select Course</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Full Stack Developer">Full Stack Developer</option>
+          </select>
+
+          <select
+            name="batchPreference"
+            value={form.batchPreference}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Batch Preference</option>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+            <option value="Weekend">Weekend</option>
+          </select>
+
+          <select
+            name="paymentOption"
+            value={form.paymentOption}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Payment Option</option>
+            <option value="Full Payment">Full Payment</option>
+            <option value="EMI">EMI</option>
+            <option value="Installments">Installments</option>
+          </select>
 
           <select
             name="assignedTo"
             value={form.assignedTo}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
           >
-
-            <option>
-              Unassigned
-            </option>
-
-            <option>
-              Neha Verma
-            </option>
-
-            <option>
-              Amit Singh
-            </option>
-
-            <option>
-              Priya Sharma
-            </option>
-
+            <option value="Unassigned">Unassigned</option>
+            <option value="Neha Verma">Neha Verma</option>
+            <option value="Amit Singh">Amit Singh</option>
+            <option value="Priya Sharma">Priya Sharma</option>
+            <option value="Rahul Patel">Rahul Patel</option>
           </select>
 
+          <div className="md:col-span-2 flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="agree"
+              checked={form.agree}
+              onChange={(e) => setForm({ ...form, agree: e.target.checked })}
+              className="w-4 h-4 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+            />
+            <label className="text-sm text-gray-600">I agree to the terms and conditions</label>
+          </div>
 
         </div>
 
@@ -171,7 +270,7 @@ export default function AddLeadModal({
 
           <button
             onClick={onClose}
-            className="px-5 py-2 border rounded-lg"
+            className="px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all font-medium"
           >
             Cancel
           </button>
@@ -179,7 +278,7 @@ export default function AddLeadModal({
 
           <button
             onClick={handleSubmit}
-            className="px-5 py-2 bg-violet-600 text-white rounded-lg"
+            className="px-6 py-2.5 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-all font-medium shadow-sm hover:shadow-md"
           >
             Save Lead
           </button>
