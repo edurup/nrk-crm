@@ -14,9 +14,14 @@ interface Props {
 
   assignedTo: string;
   setAssignedTo: React.Dispatch<React.SetStateAction<string>>;
+  
+  course: string;
+setCourse: React.Dispatch<React.SetStateAction<string>>;
 
   onAddLead: () => void;
 }
+
+
 
 export default function LeadToolbar({
     search,
@@ -27,6 +32,8 @@ export default function LeadToolbar({
     setStatus,
     assignedTo,
     setAssignedTo,
+    course,
+    setCourse,
     onAddLead,
   }: Props) {
   return (
@@ -79,7 +86,19 @@ export default function LeadToolbar({
 <option value="Admission Done">Admission Done</option>
 <option value="Not Interested">Not Interested</option>
           </select>
+{/* Course */}
+<select
+  value={course}
+  onChange={(e) => setCourse(e.target.value)}
+  className="px-4 py-2.5 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+>
+  <option value="all">All Courses</option>
 
+  <option value="Digital Marketing">Digital Marketing</option>
+  <option value="Data Science">Data Science</option>
+  <option value="Full Stack Development">Full Stack Development</option>
+  <option value="UI/UX Design">Data Analyst</option>
+</select>
           {/* Assigned */}
           <select
   value={assignedTo}
@@ -97,16 +116,6 @@ export default function LeadToolbar({
 
         {/* Right Side */}
         <div className="flex gap-2">
-
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-50 transition-all font-medium text-sm">
-            <Upload size={18} />
-            Import
-          </button>
-
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-50 transition-all font-medium text-sm">
-            <Download size={18} />
-            Export
-          </button>
 
           <button
   onClick={onAddLead}

@@ -17,6 +17,7 @@ export default function LeadsPage() {
 const [source, setSource] = useState("all");
 const [status, setStatus] = useState("all");
 const [assignedTo, setAssignedTo] = useState("all");
+const [course, setCourse] = useState("all");
 const [selectedLead, setSelectedLead] = useState<any>(null);
 const [showAddLead, setShowAddLead] = useState(false);
 
@@ -82,14 +83,21 @@ const [showAddLead, setShowAddLead] = useState(false);
       assignedTo === "all"
         ? true
         : lead.assignedTo === assignedTo;
+
+      // Course
+const matchesCourse =
+course === "all"
+  ? true
+  : lead.courseName === course;
   
-    return (
-      matchesSearch &&
-      matchesTab &&
-      matchesSource &&
-      matchesStatus &&
-      matchesAssigned
-    );
+  return (
+    matchesSearch &&
+    matchesTab &&
+    matchesSource &&
+    matchesStatus &&
+    matchesAssigned &&
+    matchesCourse
+  );
   
   });
 
@@ -114,6 +122,8 @@ const [showAddLead, setShowAddLead] = useState(false);
   setStatus={setStatus}
   assignedTo={assignedTo}
   setAssignedTo={setAssignedTo}
+  course={course}
+  setCourse={setCourse}
   onAddLead={() => setShowAddLead(true)}
 />
 
