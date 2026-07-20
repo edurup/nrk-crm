@@ -15,7 +15,7 @@ export default function IntegrationsPage() {
   console.log("HEADERS IN PAGE:", previewHeaders);
 
   return (
-    <div className="p-6 max-w-[1400px] mx-auto space-y-6">
+    <div className="w-full p-6 space-y-6">
 
       <IntegrationHeader />
 

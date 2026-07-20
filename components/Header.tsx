@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogOut, UserCircle } from "lucide-react";
+import Image from "next/image";
 
 
 export default function Header(){
@@ -58,13 +59,17 @@ export default function Header(){
     ">
 
 
-        <h2 className="
-        font-semibold
-        text-gray-800
-        text-lg
-        ">
-            CRM Dashboard
-        </h2>
+        <div className="h-10 w-32 relative">
+          <Image
+            src="/nrklogo.png"
+            height={40}
+            width={128}
+            alt="NRK Logo"
+            className="object-contain"
+            priority
+            sizes="128px"
+          />
+        </div>
 
 
 

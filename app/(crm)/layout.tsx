@@ -54,11 +54,11 @@ export default function CRMLayout({
 
       <Sidebar />
 
-      <div className="ml-64 w-full flex flex-col">
+      <div className="flex-1 ml-64 flex flex-col min-w-0">
 
         <Header />
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 overflow-x-hidden">
           {children}
         </main>
 

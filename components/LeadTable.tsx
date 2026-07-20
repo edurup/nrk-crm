@@ -2,6 +2,9 @@
 import {
     updateLeadStatus,
     updateLeadAssignment,
+    updateLeadDemo,
+    updateLeadPriority,
+    updateLeadFollowUp,
   } from "@/lib/api";
 
   interface Props {
@@ -18,6 +21,9 @@ import {
     "Free Live Class": "bg-orange-100 text-orange-700",
     "Website Lead": "bg-gray-100 text-gray-700",
   };
+
+  const demoOptions = ["Will Join", "Not Joined", "Joined"];
+  const priorityOptions = ["High", "Medium", "Low"];
 
 const statusOptions = [
     "New Lead",
@@ -103,7 +109,9 @@ return(
 
 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-in">
 
-<table className="w-full border-collapse">
+<div className="overflow-x-auto">
+
+<table className="w-full border-collapse min-w-[1200px]">
 
 <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
 
@@ -137,6 +145,26 @@ Status
 
 <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 Assigned To
+</th>
+
+
+<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+Demo
+</th>
+
+
+<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+Next Follow Up
+</th>
+
+
+<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+Priority
+</th>
+
+
+<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+Notes
 </th>
 
 
@@ -332,6 +360,116 @@ value={status}
 </td>
 
 
+{/* DEMO */}
+
+<td className="p-3">
+  <select
+    onClick={(e) => e.stopPropagation()}
+    value={lead.demo || ""}
+    onChange={async (e) => {
+      const demo = e.target.value;
+      try {
+        await updateLeadDemo(lead._id, demo);
+        setLeads((prev) =>
+          prev.map((item) =>
+            item._id === lead._id
+              ? { ...item, demo }
+              : item
+          )
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }}
+    className={`px-3 py-1.5 rounded-full text-xs font-medium border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 ${
+      lead.demo === "Will Join" ? "bg-green-100 text-green-700" :
+      lead.demo === "Joined" ? "bg-blue-100 text-blue-700" :
+      lead.demo === "Not Joined" ? "bg-red-100 text-red-700" :
+      "bg-gray-100 text-gray-700"
+    }`}
+  >
+    <option value="">-</option>
+    {demoOptions.map((option) => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ))}
+  </select>
+</td>
+
+
+{/* NEXT FOLLOW UP */}
+
+<td className="p-3">
+  <input
+    type="date"
+    value={lead.nextFollowUp || ""}
+    onClick={(e) => e.stopPropagation()}
+    onChange={async (e) => {
+      const nextFollowUp = e.target.value;
+      try {
+        await updateLeadFollowUp(lead._id, nextFollowUp);
+        setLeads((prev) =>
+          prev.map((item) =>
+            item._id === lead._id
+              ? { ...item, nextFollowUp }
+              : item
+          )
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }}
+    className="px-3 py-1.5 rounded-lg text-xs border border-gray-300 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+  />
+</td>
+
+
+{/* LEAD PRIORITY */}
+
+<td className="p-3">
+  <select
+    onClick={(e) => e.stopPropagation()}
+    value={lead.leadPriority || ""}
+    onChange={async (e) => {
+      const leadPriority = e.target.value;
+      try {
+        await updateLeadPriority(lead._id, leadPriority);
+        setLeads((prev) =>
+          prev.map((item) =>
+            item._id === lead._id
+              ? { ...item, leadPriority }
+              : item
+          )
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }}
+    className={`px-3 py-1.5 rounded-full text-xs font-medium border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 ${
+      lead.leadPriority === "High" ? "bg-red-100 text-red-700" :
+      lead.leadPriority === "Medium" ? "bg-yellow-100 text-yellow-700" :
+      lead.leadPriority === "Low" ? "bg-green-100 text-green-700" :
+      "bg-gray-100 text-gray-700"
+    }`}
+  >
+    <option value="">-</option>
+    {priorityOptions.map((option) => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ))}
+  </select>
+</td>
+
+
+{/* LEAD NOTES */}
+
+<td className="p-4 text-sm text-gray-700 max-w-[150px] truncate">
+  {lead.leadNotes || "-"}
+</td>
+
+
 </tr>
 
 ))
@@ -342,6 +480,8 @@ value={status}
 
 
 </table>
+
+</div>
 
 </div>
 

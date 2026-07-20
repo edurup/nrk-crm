@@ -183,3 +183,57 @@ export const deleteImportedSheet = async (id: string) => {
 
   return data;
 };
+
+// Lead field update APIs
+export const updateLeadDemo = async (
+  id: string,
+  demo: string,
+  demoDateTime?: string
+) => {
+  const response = await api.put(`/crm/leads/${id}`, {
+    demo,
+    demoDateTime,
+  });
+  return response.data;
+};
+
+export const updateLeadPriority = async (
+  id: string,
+  leadPriority: string
+) => {
+  const response = await api.put(`/crm/leads/${id}`, {
+    leadPriority,
+  });
+  return response.data;
+};
+
+export const updateLeadFollowUp = async (
+  id: string,
+  nextFollowUp: string
+) => {
+  const response = await api.put(`/crm/leads/${id}`, {
+    nextFollowUp,
+  });
+  return response.data;
+};
+
+export const updateLeadNotes = async (
+  id: string,
+  leadNotes: string
+) => {
+  const response = await api.put(`/crm/leads/${id}`, {
+    leadNotes,
+  });
+  return response.data;
+};
+
+export const changePassword = async (
+  currentPassword: string,
+  newPassword: string
+) => {
+  const response = await api.patch("/crm/auth/change-password", {
+    currentPassword,
+    newPassword,
+  });
+  return response.data;
+};

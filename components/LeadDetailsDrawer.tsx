@@ -7,10 +7,18 @@ import {
   GraduationCap,
   User,
   Calendar,
+  Clock,
+  AlertCircle,
+  FileText,
+  Save,
+  Edit2,
 } from "lucide-react";
+import { useState } from "react";
+import { updateLeadNotes } from "@/lib/api";
 
 interface Props {
   lead: any;
+  setLeads?: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const statusColors: Record<string, string> = {
@@ -24,7 +32,11 @@ const statusColors: Record<string, string> = {
   "Demo Attended": "bg-orange-100 text-orange-700",
 };
 
-export default function LeadDetailsDrawer({ lead }: Props) {
+export default function LeadDetailsDrawer({ lead, setLeads }: Props) {
+  const [editingNotes, setEditingNotes] = useState(false);
+  const [notesValue, setNotesValue] = useState(lead?.leadNotes || "");
+  const [saving, setSaving] = useState(false);
+
   if (!lead) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-10 text-center text-gray-400 sticky top-6">
@@ -152,6 +164,84 @@ export default function LeadDetailsDrawer({ lead }: Props) {
               lead.createdAt
             ).toLocaleString()}
           />
+
+          <InfoRow
+            icon={<Clock size={18}/>}
+            label="Demo Status"
+            value={lead.demo || "-"}
+          />
+
+          <InfoRow
+            icon={<Clock size={18}/>}
+            label="Next Follow Up"
+            value={lead.nextFollowUp ? new Date(lead.nextFollowUp).toLocaleDateString() : "-"}
+          />
+
+          <InfoRow
+            icon={<AlertCircle size={18}/>}
+            label="Lead Priority"
+            value={lead.leadPriority || "-"}
+          />
+
+          <div className="flex justify-between gap-5">
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
+              <FileText size={18}/>
+              Lead Notes
+            </div>
+            <div className="flex-1">
+              {editingNotes ? (
+                <div className="flex gap-2">
+                  <textarea
+                    value={notesValue}
+                    onChange={(e) => setNotesValue(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 resize-none"
+                    rows={3}
+                  />
+                  <button
+                    onClick={async () => {
+                      setSaving(true);
+                      try {
+                        await updateLeadNotes(lead._id, notesValue);
+                        if (setLeads) {
+                          setLeads((prev) =>
+                            prev.map((item) =>
+                              item._id === lead._id
+                                ? { ...item, leadNotes: notesValue }
+                                : item
+                            )
+                          );
+                        }
+                        setEditingNotes(false);
+                      } catch (error) {
+                        console.log(error);
+                      } finally {
+                        setSaving(false);
+                      }
+                    }}
+                    disabled={saving}
+                    className="px-3 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-all disabled:opacity-50"
+                  >
+                    {saving ? "Saving..." : <Save size={16}/>}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm text-gray-900 font-medium">
+                    {lead.leadNotes || "-"}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setNotesValue(lead.leadNotes || "");
+                      setEditingNotes(true);
+                    }}
+                    className="p-1 hover:bg-gray-100 rounded transition-colors"
+                  >
+                    <Edit2 size={14} className="text-gray-500"/>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
 
         </div>
 

@@ -102,7 +102,7 @@ course === "all"
   });
 
   return (
-    <div className="p-6 max-w-[1600px] mx-auto">
+    <div className="w-full">
       <div className="mb-8">
   <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
     Leads
@@ -170,6 +170,7 @@ course === "all"
   <div className="w-[360px] shrink-0 sticky top-6 hidden lg:block">
     <LeadDetailsDrawer
       lead={selectedLead}
+      setLeads={setLeads}
     />
   </div>
 

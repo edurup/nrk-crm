@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 import {
   LayoutDashboard,
@@ -93,14 +94,20 @@ h-16
 flex
 items-center
 px-6
-font-bold
-text-xl
-text-green-900
 border-b
 border-gray-200
-tracking-tight
 ">
-NRK CRM
+<div className="h-10 w-32 relative">
+  <Image
+    src="/nrklogo.png"
+    height={40}
+    width={128}
+    alt="NRK Logo"
+    className="object-contain"
+    priority
+    sizes="128px"
+  />
+</div>
 </div>
 
 

@@ -36,6 +36,11 @@ export default function AddLeadModal({
         batchPreference: "",
         paymentOption: "",
         agree: false,
+        demo: "",
+        demoDateTime: "",
+        nextFollowUp: "",
+        leadPriority: "",
+        leadNotes: "",
     });
 
 
@@ -261,6 +266,56 @@ export default function AddLeadModal({
             />
             <label className="text-sm text-gray-600">I agree to the terms and conditions</label>
           </div>
+
+          <select
+            name="demo"
+            value={form.demo}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Demo Status</option>
+            <option value="Will Join">Will Join</option>
+            <option value="Not Joined">Not Joined</option>
+            <option value="Joined">Joined</option>
+          </select>
+
+          <input
+            name="demoDateTime"
+            type="datetime-local"
+            placeholder="Demo Date & Time"
+            value={form.demoDateTime}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
+
+          <input
+            name="nextFollowUp"
+            type="date"
+            placeholder="Next Follow Up"
+            value={form.nextFollowUp}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
+          />
+
+          <select
+            name="leadPriority"
+            value={form.leadPriority}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all bg-white"
+          >
+            <option value="">Lead Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+
+          <input
+            name="leadNotes"
+            placeholder="Lead Notes"
+            value={form.leadNotes}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all md:col-span-2"
+          />
 
         </div>
 
