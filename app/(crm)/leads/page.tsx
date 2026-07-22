@@ -4,7 +4,6 @@ import LeadTabs from "@/components/LeadTabs";
 import LeadToolbar from "@/components/LeadToolbar";
 import LeadDetailsDrawer from "@/components/LeadDetailsDrawer";
 import AddLeadModal from "@/components/AddLeadModal";
-
 import { useEffect, useState } from "react";
 import { getLeads } from "@/lib/api";
 import LeadTable from "@/components/LeadTable";
@@ -21,6 +20,9 @@ const [course, setCourse] = useState("all");
 const [selectedLead, setSelectedLead] = useState<any>(null);
 const [showAddLead, setShowAddLead] = useState(false);
 
+const [currentPage, setCurrentPage] = useState(1);
+const LEADS_PER_PAGE = 10;
+
   useEffect(() => {
     const fetchLeads = async () => {
       try {
@@ -36,6 +38,11 @@ const [showAddLead, setShowAddLead] = useState(false);
 
     fetchLeads();
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedTab, source, status, assignedTo, course]);
+
 
   if (loading) {
     return (
@@ -99,7 +106,14 @@ course === "all"
     matchesCourse
   );
   
-  });
+});
+
+const totalPages = Math.ceil(filteredLeads.length / LEADS_PER_PAGE);
+
+const startIndex = (currentPage - 1) * LEADS_PER_PAGE;
+const endIndex = startIndex + LEADS_PER_PAGE;
+
+const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
 
   return (
     <div className="w-full">
@@ -112,6 +126,8 @@ course === "all"
     Manage, assign and track all your leads.
   </p>
 </div>
+
+
 
 <LeadToolbar
   search={search}
@@ -150,11 +166,11 @@ course === "all"
       </div>
     ) : (
       <LeadTable
-        leads={filteredLeads}
-        setLeads={setLeads}
-        setSelectedLead={setSelectedLead}
-        selectedLead={selectedLead}
-      />
+  leads={paginatedLeads}
+  setLeads={setLeads}
+  setSelectedLead={setSelectedLead}
+  selectedLead={selectedLead}
+/>
     )}
   </div>
 
@@ -175,6 +191,72 @@ course === "all"
   </div>
 
 </div>
+{filteredLeads.length > 0 && (
+  <div className="mt-8 border-t pt-5 flex items-center justify-between">
+    <p className="text-sm text-gray-600">
+      Showing {startIndex + 1}–
+      {Math.min(endIndex, filteredLeads.length)} of {filteredLeads.length} leads
+    </p>
+
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+        disabled={currentPage === 1}
+        className="px-3 py-2 rounded-lg border hover:bg-gray-100 disabled:opacity-40"
+      >
+        Previous
+      </button>
+
+      {Array.from({ length: totalPages }, (_, i) => {
+  const page = i + 1;
+
+  if (
+    page === 1 ||
+    page === totalPages ||
+    (page >= currentPage - 2 && page <= currentPage + 2)
+  ) {
+    return (
+      <button
+        key={page}
+        onClick={() => setCurrentPage(page)}
+        className={`w-9 h-9 rounded-lg border transition ${
+          currentPage === page
+            ? "bg-green-600 text-white border-green-600"
+            : "hover:bg-gray-100"
+        }`}
+      >
+        {page}
+      </button>
+    );
+  }
+
+  if (
+    page === currentPage - 3 ||
+    page === currentPage + 3
+  ) {
+    return (
+      <span key={page} className="px-2">
+        ...
+      </span>
+    );
+  }
+
+  return null;
+})}
+
+      <button
+        onClick={() =>
+          setCurrentPage((p) => Math.min(p + 1, totalPages))
+        }
+        disabled={currentPage === totalPages}
+        className="px-3 py-2 rounded-lg border hover:bg-gray-100 disabled:opacity-40"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
