@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { updateLeadNotes } from "@/lib/api";
+import WhatsAppModal from "./WhatsAppModal";
 
 interface Props {
   lead: any;
@@ -36,6 +37,7 @@ export default function LeadDetailsDrawer({ lead, setLeads }: Props) {
   const [editingNotes, setEditingNotes] = useState(false);
   const [notesValue, setNotesValue] = useState(lead?.leadNotes || "");
   const [saving, setSaving] = useState(false);
+  const [showWhatsApp, setShowWhatsApp] = useState(false);
 
   if (!lead) {
     return (
@@ -103,13 +105,12 @@ export default function LeadDetailsDrawer({ lead, setLeads }: Props) {
 
         <div className="flex justify-center gap-3 mt-6">
 
-          <a
-            href={`https://wa.me/91${lead.phoneNumber || lead.phone}`}
-            target="_blank"
-            className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center hover:scale-105 hover:bg-green-200 transition-all duration-200 shadow-sm"
-          >
-            <MessageCircle className="text-green-600" size={22}/>
-          </a>
+        <button
+  onClick={() => setShowWhatsApp(true)}
+  className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center hover:scale-105 hover:bg-green-200 transition-all duration-200 shadow-sm"
+>
+  <MessageCircle className="text-green-600" size={22} />
+</button>
 
           <a
             href={`tel:${lead.phoneNumber || lead.phone}`}
@@ -245,10 +246,17 @@ export default function LeadDetailsDrawer({ lead, setLeads }: Props) {
 
         </div>
 
-      </div>
+        </div>
 
-    </div>
-  );
+{showWhatsApp && (
+  <WhatsAppModal
+    lead={lead}
+    onClose={() => setShowWhatsApp(false)}
+  />
+)}
+
+</div>
+);
 }
 
 function InfoRow({
@@ -273,5 +281,6 @@ function InfoRow({
       </div>
 
     </div>
+    
   );
 }

@@ -237,3 +237,22 @@ export const changePassword = async (
   });
   return response.data;
 };
+
+export const markWhatsAppSent = async (
+  id: string,
+  message: string
+) => {
+  const response = await api.put(
+    `/crm/leads/${id}/whatsapp`,
+    {
+      message,
+    }
+  );
+
+  return response.data;
+};
+
+export const getWhatsAppHistory = async () => {
+  const response = await api.get("/crm/whatsapp/history");
+  return response.data;
+};
