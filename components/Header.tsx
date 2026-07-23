@@ -127,13 +127,13 @@ export default function Header(){
                 className="
                 absolute
                 right-0
-                mt-3
-                w-72
+                mt-4
+                w-80
                 bg-white
-                border
+                border border-gray-200
                 rounded-2xl
-                shadow-xl
-                p-5
+                shadow-2xl
+                overflow-hidden
                 "
                 >
 
@@ -141,26 +141,29 @@ export default function Header(){
                     {/* User Info */}
 
                     <div className="
+                    bg-gradient-to-r
+                    from-green-600
+                    to-green-700
+                    p-6
+                    text-white
                     flex
                     items-center
-                    gap-3
-                    pb-4
-                    border-b
+                    gap-4
                     ">
-
 
                         <div
                         className="
-                        w-12
-                        h-12
+                        w-14
+                        h-14
                         rounded-full
-                        bg-green-700
-                        text-white
+                        bg-white
+                        text-green-700
                         flex
                         items-center
                         justify-center
                         font-bold
-                        text-lg
+                        text-xl
+                        shadow-lg
                         "
                         >
                             {
@@ -170,29 +173,80 @@ export default function Header(){
                             }
                         </div>
 
-
-
-                        <div>
+                        <div className="flex-1">
 
                             <h3 className="
                             font-semibold
-                            text-gray-800
+                            text-white
+                            text-lg
+                            leading-tight
                             ">
                                 {user?.name || "Admin"}
                             </h3>
 
-
                             <p className="
                             text-sm
-                            text-gray-500
+                            text-green-100
+                            mt-1
+                            truncate
                             ">
                                 {user?.email || ""}
                             </p>
 
-
                         </div>
 
+                    </div>
 
+                    {/* Role Badge */}
+                    <div className="
+                    px-6
+                    pb-6
+                    bg-gradient-to-r
+                    from-green-600
+                    to-green-700
+                    ">
+                        <span className="
+                        text-xs
+                        font-semibold
+                        px-3 py-1 rounded-full
+                        bg-white/20
+                        text-white
+                        backdrop-blur-sm
+                        border border-white/30
+                        ">
+                            {user?.role === 'admin' || !user?.role ? '👑 Admin' : '👤 User'}
+                        </span>
+                    </div>
+
+                    {/* Logout */}
+                    <div className="
+                    p-4
+                    bg-gray-50
+                    border-t border-gray-200
+                    ">
+                    <button
+                    onClick={logout}
+                    className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    w-full
+                    px-4
+                    py-3
+                    rounded-xl
+                    bg-white
+                    text-red-600
+                    border border-red-200
+                    hover:bg-red-50
+                    hover:border-red-300
+                    transition-all
+                    font-medium
+                    shadow-sm
+                    ">
+                        <LogOut size={18}/>
+                        Logout
+                    </button>
                     </div>
 
 
@@ -200,28 +254,6 @@ export default function Header(){
                     {/* Logout */}
 
 
-                    <button
-                    onClick={logout}
-                    className="
-                    mt-4
-                    flex
-                    items-center
-                    gap-3
-                    w-full
-                    px-4
-                    py-3
-                    rounded-xl
-                    text-red-600
-                    hover:bg-red-50
-                    transition
-                    "
-                    >
-
-                        <LogOut size={18}/>
-
-                        Logout
-
-                    </button>
 
 
                 </div>

@@ -107,6 +107,10 @@ export default function LeadTable({
     selectedLead
 }:Props) {
 
+  // Get current user from localStorage
+  const currentUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('crmUser') || '{}') : {};
+  const isAdmin = currentUser.role === 'admin' || !currentUser.role; // CRMAdmin has no role field
+
   const handleDelete = async (id:string) => {
 
     const confirmDelete = window.confirm(
@@ -510,6 +514,7 @@ value={status}
 
 <td className="p-4">
 
+{isAdmin && (
 <button
   onClick={(e)=>{
     e.stopPropagation();
@@ -519,6 +524,7 @@ value={status}
 >
   Delete
 </button>
+)}
 
 </td>
 

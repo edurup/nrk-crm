@@ -1,14 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getImportedSheets,deleteImportedSheet, } from "@/lib/api";
 import Link from "next/link";
 
 export default function ImportedSheetsPage() {
+    const router = useRouter();
     const [sheets, setSheets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-  
+
     useEffect(() => {
+      // Check if user is admin
+      const currentUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('crmUser') || '{}') : {};
+      const isAdmin = currentUser.role === 'admin' || !currentUser.role;
+      
+      if (!isAdmin) {
+        router.push('/dashboard');
+        return;
+      }
+
       const fetchSheets = async () => {
         try {
           const data = await getImportedSheets();
@@ -25,7 +36,15 @@ export default function ImportedSheetsPage() {
   
       fetchSheets();
 
-    }, []);
+    }, [router]);
+
+    // Get current user to check access
+    const currentUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('crmUser') || '{}') : {};
+    const isAdmin = currentUser.role === 'admin' || !currentUser.role;
+
+    if (!isAdmin) {
+      return null; // Will redirect in useEffect
+    }
     const handleDelete = async (id: string) => {
         const confirmDelete = window.confirm(
           "Are you sure you want to delete this imported sheet?"

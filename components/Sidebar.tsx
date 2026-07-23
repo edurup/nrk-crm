@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 import {
   LayoutDashboard,
@@ -17,7 +18,7 @@ import {
 } from "lucide-react";
 
 
-const menu = [
+const allMenu = [
   {
     name: "Dashboard",
     icon: LayoutDashboard,
@@ -32,11 +33,13 @@ const menu = [
     name: "Integration",
     icon: Plug,
     path: "/integrations",
+    adminOnly: true,
   },
   {
     name: "Imported Sheets",
     path: "/imported-sheets",
     icon: FileSpreadsheet,
+    adminOnly: true,
   },
   {
     name: "Follow Ups",
@@ -70,7 +73,20 @@ const menu = [
 export default function Sidebar(){
 
 const pathname = usePathname();
+const [menu, setMenu] = useState(allMenu);
 
+useEffect(() => {
+  // Get current user from localStorage
+  const currentUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('crmUser') || '{}') : {};
+  const isAdmin = currentUser.role === 'admin' || !currentUser.role; // CRMAdmin has no role field
+  
+  // Filter menu based on user role
+  if (isAdmin) {
+    setMenu(allMenu);
+  } else {
+    setMenu(allMenu.filter(item => !item.adminOnly));
+  }
+}, []);
 
 return (
 

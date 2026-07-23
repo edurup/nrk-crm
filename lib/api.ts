@@ -231,7 +231,15 @@ export const changePassword = async (
   currentPassword: string,
   newPassword: string
 ) => {
-  const response = await api.patch("/crm/auth/change-password", {
+  // Get current user to determine which endpoint to use
+  const currentUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('crmUser') || '{}') : {};
+  const isAdmin = currentUser.role === 'admin' || !currentUser.role;
+  
+  const endpoint = isAdmin 
+    ? '/crm/auth/change-password' 
+    : '/crm/users/change-password';
+    
+  const response = await api.patch(endpoint, {
     currentPassword,
     newPassword,
   });
@@ -262,5 +270,27 @@ export const deleteLead = async (id: string) => {
     `/crm/leads/${id}`
   );
 
+  return response.data;
+};
+
+// CRM User Management APIs (Admin only)
+export const createCRMUser = async (userData: {
+  name: string;
+  email: string;
+  password: string;
+  role?: string;
+  assignedCourses?: string[];
+}) => {
+  const response = await api.post("/crm/users/create", userData);
+  return response.data;
+};
+
+export const getAllCRMUsers = async () => {
+  const response = await api.get("/crm/users/all");
+  return response.data;
+};
+
+export const deleteCRMUser = async (id: string) => {
+  const response = await api.delete(`/crm/users/${id}`);
   return response.data;
 };
