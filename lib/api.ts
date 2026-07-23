@@ -256,3 +256,11 @@ export const getWhatsAppHistory = async () => {
   const response = await api.get("/crm/whatsapp/history");
   return response.data;
 };
+
+export const deleteLead = async (id: string) => {
+  const response = await api.delete(
+    `/crm/leads/${id}`
+  );
+
+  return response.data;
+};

@@ -5,7 +5,9 @@ import {
     updateLeadDemo,
     updateLeadPriority,
     updateLeadFollowUp,
+    deleteLead,
   } from "@/lib/api";
+
 
   interface Props {
     leads:any[];
@@ -105,6 +107,37 @@ export default function LeadTable({
     selectedLead
 }:Props) {
 
+  const handleDelete = async (id:string) => {
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this lead?"
+    );
+  
+    if (!confirmDelete) return;
+  
+    try {
+  
+      await deleteLead(id);
+  
+      setLeads((prev) =>
+        prev.filter(
+          (lead) => lead._id !== id
+        )
+      );
+  
+    } catch(error){
+  
+      console.error(
+        "Delete failed",
+        error
+      );
+  
+      alert("Failed to delete lead");
+  
+    }
+  
+  };
+
 return(
 
 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-in">
@@ -165,6 +198,10 @@ Priority
 
 <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 Notes
+</th>
+
+<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+Action
 </th>
 
 
@@ -467,6 +504,22 @@ value={status}
 
 <td className="p-4 text-sm text-gray-700 max-w-[150px] truncate">
   {lead.leadNotes || "-"}
+</td>
+
+{/* delete */}
+
+<td className="p-4">
+
+<button
+  onClick={(e)=>{
+    e.stopPropagation();
+    handleDelete(lead._id);
+  }}
+  className="px-3 py-1.5 rounded-lg bg-red-100 text-red-600 text-xs font-semibold hover:bg-red-200 transition"
+>
+  Delete
+</button>
+
 </td>
 
 
