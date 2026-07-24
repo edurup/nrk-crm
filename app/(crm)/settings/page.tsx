@@ -163,24 +163,24 @@ export default function SettingsPage() {
   }, [activeTab]);
 
   return (
-    <div className="w-full p-6 space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+    <div className="w-full p-8 space-y-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+      {/* Heading */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
           Settings
         </h1>
-        <p className="text-gray-500 mt-1">
-          Manage your account settings and team members
+        <p className="text-gray-500 mt-2 text-lg">
+          Manage your account settings and team members.
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-2 inline-flex gap-2">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-2 inline-flex gap-2">
         <button
           onClick={() => setActiveTab("password")}
           className={`px-6 py-3 rounded-xl font-medium transition-all ${
             activeTab === "password"
-              ? "bg-green-600 text-white"
+              ? "bg-gradient-to-r from-green-600 to-green-700 text-white shadow-md"
               : "text-gray-600 hover:bg-gray-100"
           }`}
         >
@@ -194,7 +194,7 @@ export default function SettingsPage() {
             onClick={() => setActiveTab("users")}
             className={`px-6 py-3 rounded-xl font-medium transition-all ${
               activeTab === "users"
-                ? "bg-green-600 text-white"
+                ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
                 : "text-gray-600 hover:bg-gray-100"
             }`}
           >
@@ -208,20 +208,20 @@ export default function SettingsPage() {
 
       {/* Change Password Tab */}
       {activeTab === "password" && (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-              <Shield className="text-green-700" size={24} />
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-8">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center shadow-md">
+              <Shield className="text-green-600" size={28} />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Change Password</h2>
-              <p className="text-sm text-gray-500">Update your password to keep your account secure</p>
+              <h2 className="text-2xl font-bold text-gray-900">Change Password</h2>
+              <p className="text-sm text-gray-500 mt-1">Update your password to keep your account secure</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Current Password
               </label>
               <div className="relative">
@@ -229,13 +229,13 @@ export default function SettingsPage() {
                   type={showCurrentPassword ? "text" : "password"}
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                   placeholder="Enter current password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {showCurrentPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -243,7 +243,7 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 New Password
               </label>
               <div className="relative">
@@ -251,13 +251,13 @@ export default function SettingsPage() {
                   type={showNewPassword ? "text" : "password"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                   placeholder="Enter new password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowNewPassword(!showNewPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -265,7 +265,7 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Confirm New Password
               </label>
               <div className="relative">
@@ -273,13 +273,13 @@ export default function SettingsPage() {
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                   placeholder="Confirm new password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -288,10 +288,10 @@ export default function SettingsPage() {
 
             {message && (
               <div
-                className={`flex items-center gap-2 p-4 rounded-xl ${
+                className={`flex items-center gap-3 p-4 rounded-xl border ${
                   message.type === "success"
-                    ? "bg-green-50 text-green-700"
-                    : "bg-red-50 text-red-700"
+                    ? "bg-green-50 text-green-700 border-green-200"
+                    : "bg-red-50 text-red-700 border-red-200"
                 }`}
               >
                 {message.type === "success" ? (
@@ -299,14 +299,14 @@ export default function SettingsPage() {
                 ) : (
                   <AlertCircle size={20} />
                 )}
-                <span className="text-sm">{message.text}</span>
+                <span className="text-sm font-medium">{message.text}</span>
               </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               {loading ? "Changing Password..." : "Change Password"}
             </button>
@@ -318,48 +318,48 @@ export default function SettingsPage() {
       {activeTab === "users" && (
         <div className="space-y-6">
           {/* Create User Form */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                <UserPlus className="text-blue-700" size={24} />
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-8">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center shadow-md">
+                <UserPlus className="text-blue-600" size={28} />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">Create New User</h2>
-                <p className="text-sm text-gray-500">Add a new salesperson to your team</p>
+                <h2 className="text-2xl font-bold text-gray-900">Create New User</h2>
+                <p className="text-sm text-gray-500 mt-1">Add a new salesperson to your team</p>
               </div>
             </div>
 
-            <form onSubmit={handleCreateUser} className="space-y-5 max-w-2xl">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleCreateUser} className="space-y-6 max-w-2xl">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                     placeholder="Enter full name"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Email
                   </label>
                   <input
                     type="email"
                     value={userEmail}
                     onChange={(e) => setUserEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                     placeholder="Enter email"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Password
                   </label>
                   <div className="relative">
@@ -367,26 +367,26 @@ export default function SettingsPage() {
                       type={showUserPassword ? "text" : "password"}
                       value={userPassword}
                       onChange={(e) => setUserPassword(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
                       placeholder="Enter password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowUserPassword(!showUserPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       {showUserPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Role
                   </label>
                   <select
                     value={userRole}
                     onChange={(e) => setUserRole(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white transition-all"
                   >
                     <option value="salesperson">Salesperson</option>
                     <option value="admin">Admin</option>
@@ -395,18 +395,18 @@ export default function SettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Assign Courses
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {availableCourses.map((course) => (
                     <button
                       key={course}
                       type="button"
                       onClick={() => toggleCourse(course)}
-                      className={`px-4 py-2 rounded-xl border transition-all ${
+                      className={`px-4 py-2.5 rounded-xl border transition-all font-medium ${
                         assignedCourses.includes(course)
-                          ? "bg-green-600 text-white border-green-600"
+                          ? "bg-gradient-to-r from-green-600 to-green-700 text-white border-green-600 shadow-md"
                           : "bg-white text-gray-700 border-gray-300 hover:border-green-500"
                       }`}
                     >
@@ -418,10 +418,10 @@ export default function SettingsPage() {
 
               {userMessage && (
                 <div
-                  className={`flex items-center gap-2 p-4 rounded-xl ${
+                  className={`flex items-center gap-3 p-4 rounded-xl border ${
                     userMessage.type === "success"
-                      ? "bg-green-50 text-green-700"
-                      : "bg-red-50 text-red-700"
+                      ? "bg-green-50 text-green-700 border-green-200"
+                      : "bg-red-50 text-red-700 border-red-200"
                   }`}
                 >
                   {userMessage.type === "success" ? (
@@ -429,14 +429,14 @@ export default function SettingsPage() {
                   ) : (
                     <AlertCircle size={20} />
                   )}
-                  <span className="text-sm">{userMessage.text}</span>
+                  <span className="text-sm font-medium">{userMessage.text}</span>
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={creatingUser}
-                className="w-full px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
               >
                 {creatingUser ? "Creating User..." : "Create User"}
               </button>
@@ -444,16 +444,16 @@ export default function SettingsPage() {
           </div>
 
           {/* Users List */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+            <div className="p-6 border-b-2 border-gray-200 flex justify-between items-center bg-gradient-to-r from-gray-50 to-white">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Team Members</h3>
-                <p className="text-sm text-gray-500">View and manage your sales team</p>
+                <h3 className="text-xl font-bold text-gray-900">Team Members</h3>
+                <p className="text-sm text-gray-500 mt-1">View and manage your sales team</p>
               </div>
               <button
                 onClick={fetchUsers}
                 disabled={loadingUsers}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50"
+                className="px-5 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl text-sm font-semibold hover:from-green-700 hover:to-green-800 disabled:opacity-50 shadow-md transition-all"
               >
                 {loadingUsers ? "Loading..." : "Refresh"}
               </button>
@@ -462,19 +462,19 @@ export default function SettingsPage() {
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Name
                     </th>
-                    <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Role
                     </th>
-                    <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Assigned Courses
                     </th>
-                    <th className="p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="p-5 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -482,56 +482,61 @@ export default function SettingsPage() {
                 <tbody>
                   {loadingUsers ? (
                     <tr>
-                      <td colSpan={5} className="p-8 text-center text-gray-500">
-                        Loading users...
+                      <td colSpan={5} className="p-16 text-center text-gray-500">
+                        <div className="w-12 h-12 border-4 border-gray-200 border-t-green-600 rounded-full animate-spin mx-auto mb-4"></div>
+                        <p className="font-medium">Loading users...</p>
                       </td>
                     </tr>
                   ) : users.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="p-8 text-center text-gray-500">
-                        No users found
+                      <td colSpan={5} className="p-16 text-center">
+                        <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                          <Users className="text-gray-400" size={40} />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">No users found</h3>
+                        <p className="text-gray-500 text-lg">Create your first team member to get started.</p>
                       </td>
                     </tr>
                   ) : (
                     users.map((user) => (
                       <tr
                         key={user._id}
-                        className="border-b border-gray-100 hover:bg-gray-50"
+                        className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-gray-50 hover:to-white transition-all"
                       >
-                        <td className="p-4">
-                          <div className="font-medium text-gray-900">{user.name}</div>
+                        <td className="p-5">
+                          <div className="font-semibold text-gray-900">{user.name}</div>
                         </td>
-                        <td className="p-4">
-                          <div className="text-gray-700">{user.email}</div>
+                        <td className="p-5">
+                          <div className="text-gray-700 font-medium">{user.email}</div>
                         </td>
-                        <td className="p-4">
+                        <td className="p-5">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            className={`px-4 py-2 rounded-full text-xs font-bold border ${
                               user.role === 'admin'
-                                ? 'bg-purple-100 text-purple-700'
-                                : 'bg-green-100 text-green-700'
+                                ? 'bg-purple-100 text-purple-700 border-purple-200'
+                                : 'bg-green-100 text-green-700 border-green-200'
                             }`}
                           >
                             {user.role}
                           </span>
                         </td>
-                        <td className="p-4">
-                          <div className="flex flex-wrap gap-1">
+                        <td className="p-5">
+                          <div className="flex flex-wrap gap-2">
                             {user.assignedCourses?.map((course: string) => (
                               <span
                                 key={course}
-                                className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs"
+                                className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-xs font-medium border border-gray-200"
                               >
                                 {course}
                               </span>
                             ))}
                           </div>
                         </td>
-                        <td className="p-4">
+                        <td className="p-5">
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => handleDeleteUser(user._id)}
-                              className="px-3 py-1.5 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                              className="px-4 py-2 text-sm bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-all font-semibold border border-red-200"
                             >
                               Delete
                             </button>

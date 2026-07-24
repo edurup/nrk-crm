@@ -67,57 +67,94 @@ export default function ImportedSheetsPage() {
         return <div className="p-6">Loading...</div>;
       }
       return (
-        <div className="p-6 max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold">Imported Sheets</h1>
+        <div className="w-full p-8 space-y-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+          {/* Heading */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+              Imported Sheets
+            </h1>
+            <p className="text-gray-500 mt-2 text-lg">
+              View and manage all your imported Google Sheets.
+            </p>
+          </div>
       
-          <p className="text-gray-500 mt-2">
-            View all imported Google Sheets.
-          </p>
-      
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
             {sheets.map((sheet) => (
       
               <div
                 key={sheet._id}
-                className="border rounded-xl p-5 shadow-sm bg-white"
+                className="bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 p-6 group"
               >
       
-                <h2 className="font-semibold text-lg">
-                  {sheet.sheetName}
-                </h2>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="font-bold text-gray-900 text-lg">
+                      {sheet.sheetName}
+                    </h2>
+                    <p className="text-xs text-gray-400 mt-1">Google Sheet</p>
+                  </div>
+                </div>
       
-                <p className="text-sm text-gray-500 mt-2">
-                  Rows: {sheet.rows.length}
-                </p>
-      
-                <p className="text-sm text-gray-500">
-                  Columns: {sheet.headers.length}
-                </p>
-      
-                <p className="text-xs text-gray-400 mt-3">
-                  {new Date(sheet.createdAt).toLocaleString()}
-                </p>
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Rows</span>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 border border-blue-200">
+                      {sheet.rows.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Columns</span>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 border border-purple-200">
+                      {sheet.headers.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Imported</span>
+                    <span className="text-sm text-gray-700 font-medium">
+                      {new Date(sheet.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
 
-                <Link
-  href={`/imported-sheets/${sheet._id}`}
-  className="mt-4 inline-block bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-700"
->
-  View Sheet
-</Link>
+                <div className="space-y-3">
+                  <Link
+                    href={`/imported-sheets/${sheet._id}`}
+                    className="block w-full bg-gradient-to-r from-violet-600 to-violet-700 text-white px-4 py-3 rounded-xl hover:from-violet-700 hover:to-violet-800 transition-all font-semibold text-center shadow-md"
+                  >
+                    View Sheet
+                  </Link>
 
-<button
-  onClick={() => handleDelete(sheet._id)}
-  className="mt-3 w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700"
->
-  Delete
-</button>
+                  <button
+                    onClick={() => handleDelete(sheet._id)}
+                    className="w-full bg-red-50 text-red-600 py-3 rounded-xl hover:bg-red-100 transition-all font-semibold border border-red-200"
+                  >
+                    Delete
+                  </button>
+                </div>
       
               </div>
       
             ))}
       
           </div>
+          
+          {sheets.length === 0 && (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-16 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">No imported sheets yet</h3>
+              <p className="text-gray-500 text-lg">Import your first Google Sheet from the Integration page.</p>
+            </div>
+          )}
         </div>
       );
     }

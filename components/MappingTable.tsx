@@ -16,18 +16,17 @@ export default function MappingTable({
 
   const [mapping, setMapping] = useState({
     fullName: "",
-    phoneNumber: "",
     email: "",
+    phoneNumber: "",
     courseName: "",
   });
 
-
-
   const crmFields = [
-    { label: "Lead Name", key: "fullName" },
-    { label: "Phone Number", key: "phoneNumber" },
+    { label: "Name (Lead Name)", key: "fullName" },
     { label: "Email", key: "email" },
+    { label: "Phone Number", key: "phoneNumber" },
     { label: "Course", key: "courseName" },
+    { label: "Source (Default: Google Sheet)", key: "source", disabled: true },
   ];
 
   
@@ -63,22 +62,22 @@ export default function MappingTable({
   
       const handleImport = async () => {
         try {
-      
           const response = await importGoogleLeads();
-      
+          
           console.log("IMPORT RESPONSE:", response);
-      
-          alert("Leads imported successfully!");
-      
+          
+          if (response.success) {
+            alert(`Leads imported successfully! Imported: ${response.imported}, Skipped: ${response.skipped}. Saved to leads and imported in imported sheets.`);
+          } else {
+            alert(`Import failed: ${response.message || 'Unknown error'}`);
+          }
+          
         } catch (error: any) {
-      
           console.log(
             "IMPORT ERROR:",
             error.response?.data || error.message
           );
-      
-          alert("Import failed.");
-      
+          alert(`Import failed: ${error.response?.data?.message || error.message}`);
         }
       };
   
@@ -112,72 +111,56 @@ export default function MappingTable({
               className="grid grid-cols-2 gap-6 items-center"
             >
 
-
               <div className="font-medium text-gray-900">
                 {field.label}
               </div>
 
-
-
-              <select
-
-                value={
-                  mapping[
-                    field.key as keyof typeof mapping
-                  ]
-                }
-
-
-                onChange={(e) => {
-
-                  setMapping((prev) => ({
-                    ...prev,
-                    [field.key]: e.target.value,
-                  }));
-
-                }}
-
-
-                className="
-                w-full
-                border border-gray-300
-                rounded-lg
-                px-4
-                py-3
-                focus:ring-2
-                focus:ring-green-600
-                focus:border-green-600
-                transition-all
-                bg-white
-                outline-none
-                "
-
-              >
-
-
-                <option value="">
-                  Select Google Sheet Column
-                </option>
-
-
-
-                {
-                  columns.map((column) => (
-
-                    <option
-                      key={column}
-                      value={column}
-                    >
-                      {column}
-                    </option>
-
-                  ))
-                }
-
-
-
-              </select>
-
+              {field.disabled ? (
+                <div className="text-gray-600 bg-gray-100 px-4 py-3 rounded-lg">
+                  Google Sheet (Auto-set)
+                </div>
+              ) : (
+                <select
+                  value={
+                    mapping[
+                      field.key as keyof typeof mapping
+                    ]
+                  }
+                  onChange={(e) => {
+                    setMapping((prev) => ({
+                      ...prev,
+                      [field.key]: e.target.value,
+                    }));
+                  }}
+                  className="
+                  w-full
+                  border border-gray-300
+                  rounded-lg
+                  px-4
+                  py-3
+                  focus:ring-2
+                  focus:ring-green-600
+                  focus:border-green-600
+                  transition-all
+                  bg-white
+                  outline-none
+                  "
+                >
+                  <option value="">
+                    Select Google Sheet Column
+                  </option>
+                  {
+                    columns.map((column) => (
+                      <option
+                        key={column}
+                        value={column}
+                      >
+                        {column}
+                      </option>
+                    ))
+                  }
+                </select>
+              )}
 
             </div>
 

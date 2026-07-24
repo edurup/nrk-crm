@@ -17,11 +17,12 @@ import {
   }
 
   const sourceColors: Record<string, string> = {
-    "Request Call": "bg-green-100 text-green-700",
-    "Download Brochure": "bg-blue-100 text-blue-700",
-    "Admission": "bg-purple-100 text-purple-700",
-    "Free Live Class": "bg-orange-100 text-orange-700",
-    "Website Lead": "bg-gray-100 text-gray-700",
+    "Website": "bg-gray-100 text-gray-700",
+    "Google Sheet": "bg-green-100 text-green-700",
+    "WhatsApp": "bg-blue-100 text-blue-700",
+    "Facebook": "bg-indigo-100 text-indigo-700",
+    "Instagram": "bg-pink-100 text-pink-700",
+    "Manual": "bg-purple-100 text-purple-700",
   };
 
   const demoOptions = ["Will Join", "Not Joined", "Joined"];
@@ -144,67 +145,67 @@ export default function LeadTable({
 
 return(
 
-<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-in">
+<div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden animate-fade-in">
 
 <div className="overflow-x-auto">
 
 <table className="w-full border-collapse min-w-[1200px]">
 
-<thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+<thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
 
 <tr>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Name
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Contact
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Course
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Source
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Status
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Assigned To
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Demo
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Next Follow Up
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Priority
 </th>
 
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Notes
 </th>
 
-<th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+<th className="p-5 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
 Action
 </th>
 
@@ -226,12 +227,12 @@ onClick={() => setSelectedLead(lead)}
 className={`
 border-t border-gray-100
 cursor-pointer
-transition-all duration-200
-hover:bg-violet-50 hover:shadow-sm
+transition-all duration-300
+hover:bg-gradient-to-r hover:from-gray-50 hover:to-white hover:shadow-sm
 
 ${
 selectedLead?._id===lead._id
-?"bg-violet-50 shadow-sm ring-1 ring-violet-200 ring-inset"
+?"bg-gradient-to-r from-violet-50 to-violet-100 shadow-sm ring-1 ring-violet-200 ring-inset"
 :""
 }
 `}
@@ -240,7 +241,7 @@ selectedLead?._id===lead._id
 
 {/* NAME */}
 
-<td className="p-4">
+<td className="p-5">
 
 <div className="font-semibold text-gray-900 text-sm">
 {lead.fullName}
@@ -256,9 +257,9 @@ selectedLead?._id===lead._id
 
 {/* CONTACT */}
 
-<td className="p-4">
+<td className="p-5">
 
-<div className="text-gray-700 text-sm">
+<div className="text-gray-700 text-sm font-medium">
 {lead.phoneNumber || lead.phone || "-"}
 </div>
 
@@ -272,7 +273,7 @@ selectedLead?._id===lead._id
 
 {/* COURSE */}
 
-<td className="p-4">
+<td className="p-5">
 
 <div className="text-gray-700 text-sm">
 {lead.courseName || "Lead"}
@@ -284,14 +285,14 @@ selectedLead?._id===lead._id
 
 {/* SOURCE */}
 
-<td className="p-4">
+<td className="p-5">
   <span
-    className={`px-3 py-1.5 rounded-full text-xs font-medium ${
-      sourceColors[lead.leadType] ||
-      "bg-gray-100 text-gray-700"
+    className={`px-4 py-2 rounded-full text-xs font-bold border ${
+      sourceColors[lead.leadSource] ||
+      "bg-gray-100 text-gray-700 border-gray-200"
     }`}
   >
-    {lead.leadType || "Website Lead"}
+    {lead.leadSource || "Website"}
   </span>
 </td>
 
@@ -299,7 +300,7 @@ selectedLead?._id===lead._id
 
 {/* STATUS */}
 
-<td className="p-3">
+<td className="p-5">
 
 <select
 onClick={(e) => e.stopPropagation()}
@@ -331,7 +332,7 @@ onChange={async (e)=>{
 
 }}
 
-className={`px-3 py-2 rounded-full border-0 text-xs font-medium cursor-pointer outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-1
+className={`px-4 py-2 rounded-full border-0 text-xs font-bold cursor-pointer outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-1 shadow-sm
 ${statusColors[lead.status] || "bg-gray-100 text-gray-700"}`}
 >
 
@@ -354,10 +355,10 @@ value={status}
 
 {/* ASSIGNED */}
 
-<td className="p-4">
-  <div className="flex items-center gap-2">
+<td className="p-5">
+  <div className="flex items-center gap-3">
 
-    <div className="w-8 h-8 rounded-full bg-violet-100 text-violet-700 flex items-center justify-center font-semibold text-xs">
+    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-100 to-violet-200 text-violet-700 flex items-center justify-center font-semibold text-xs shadow-sm">
       {(lead.assignedTo || "U")
         .split(" ")
         .map((n: string) => n[0])
@@ -388,7 +389,7 @@ value={status}
           console.log(error);
         }
       }}
-      className="border-0 bg-transparent text-sm font-medium outline-none cursor-pointer"
+      className="border-0 bg-transparent text-sm font-semibold outline-none cursor-pointer hover:text-violet-600 transition-colors"
     >
       {assignedUsers.map((user) => (
         <option key={user} value={user}>
@@ -403,7 +404,7 @@ value={status}
 
 {/* DEMO */}
 
-<td className="p-3">
+<td className="p-5">
   <select
     onClick={(e) => e.stopPropagation()}
     value={lead.demo || ""}
@@ -422,11 +423,11 @@ value={status}
         console.log(error);
       }
     }}
-    className={`px-3 py-1.5 rounded-full text-xs font-medium border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 ${
-      lead.demo === "Will Join" ? "bg-green-100 text-green-700" :
-      lead.demo === "Joined" ? "bg-blue-100 text-blue-700" :
-      lead.demo === "Not Joined" ? "bg-red-100 text-red-700" :
-      "bg-gray-100 text-gray-700"
+    className={`px-4 py-2 rounded-full text-xs font-bold border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 shadow-sm ${
+      lead.demo === "Will Join" ? "bg-green-100 text-green-700 border-green-200" :
+      lead.demo === "Joined" ? "bg-blue-100 text-blue-700 border-blue-200" :
+      lead.demo === "Not Joined" ? "bg-red-100 text-red-700 border-red-200" :
+      "bg-gray-100 text-gray-700 border-gray-200"
     }`}
   >
     <option value="">-</option>
@@ -441,7 +442,7 @@ value={status}
 
 {/* NEXT FOLLOW UP */}
 
-<td className="p-3">
+<td className="p-5">
   <input
     type="date"
     value={lead.nextFollowUp || ""}
@@ -461,14 +462,14 @@ value={status}
         console.log(error);
       }
     }}
-    className="px-3 py-1.5 rounded-lg text-xs border border-gray-300 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+    className="px-4 py-2 rounded-xl text-xs border border-gray-300 outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all"
   />
 </td>
 
 
 {/* LEAD PRIORITY */}
 
-<td className="p-3">
+<td className="p-5">
   <select
     onClick={(e) => e.stopPropagation()}
     value={lead.leadPriority || ""}
@@ -487,11 +488,11 @@ value={status}
         console.log(error);
       }
     }}
-    className={`px-3 py-1.5 rounded-full text-xs font-medium border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 ${
-      lead.leadPriority === "High" ? "bg-red-100 text-red-700" :
-      lead.leadPriority === "Medium" ? "bg-yellow-100 text-yellow-700" :
-      lead.leadPriority === "Low" ? "bg-green-100 text-green-700" :
-      "bg-gray-100 text-gray-700"
+    className={`px-4 py-2 rounded-full text-xs font-bold border-0 outline-none cursor-pointer focus:ring-2 focus:ring-violet-500 shadow-sm ${
+      lead.leadPriority === "High" ? "bg-red-100 text-red-700 border-red-200" :
+      lead.leadPriority === "Medium" ? "bg-yellow-100 text-yellow-700 border-yellow-200" :
+      lead.leadPriority === "Low" ? "bg-green-100 text-green-700 border-green-200" :
+      "bg-gray-100 text-gray-700 border-gray-200"
     }`}
   >
     <option value="">-</option>
@@ -506,13 +507,13 @@ value={status}
 
 {/* LEAD NOTES */}
 
-<td className="p-4 text-sm text-gray-700 max-w-[150px] truncate">
+<td className="p-5 text-sm text-gray-700 max-w-[150px] truncate">
   {lead.leadNotes || "-"}
 </td>
 
 {/* delete */}
 
-<td className="p-4">
+<td className="p-5">
 
 {isAdmin && (
 <button
@@ -520,7 +521,7 @@ value={status}
     e.stopPropagation();
     handleDelete(lead._id);
   }}
-  className="px-3 py-1.5 rounded-lg bg-red-100 text-red-600 text-xs font-semibold hover:bg-red-200 transition"
+  className="px-4 py-2 rounded-xl bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100 transition-all border border-red-200 shadow-sm"
 >
   Delete
 </button>

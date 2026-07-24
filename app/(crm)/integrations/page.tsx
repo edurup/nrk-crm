@@ -35,26 +35,38 @@ export default function IntegrationsPage() {
   console.log("HEADERS IN PAGE:", previewHeaders);
 
   return (
-    <div className="w-full p-6 space-y-6">
+    <div className="w-full p-8 space-y-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+      {/* Heading */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          Google Sheets Integration
+        </h1>
+        <p className="text-gray-500 mt-2 text-lg">
+          Connect your Google Sheets to import leads automatically.
+        </p>
+      </div>
 
-      <IntegrationHeader />
+      <div className="w-full p-6 space-y-6">
 
-      <GoogleAccountCard />
+        <IntegrationHeader />
 
-      <SheetSelector
-        setPreviewHeaders={setPreviewHeaders}
-        setPreviewRows={setPreviewRows}
-      />
+        <GoogleAccountCard />
 
-      <PreviewTable
-        headers={previewHeaders}
-        rows={previewRows}
-      />
+        <SheetSelector
+          setPreviewHeaders={setPreviewHeaders}
+          setPreviewRows={setPreviewRows}
+        />
 
-<MappingTable
-  columns={previewHeaders}
-/>
+        <PreviewTable
+          headers={previewHeaders}
+          rows={previewRows}
+        />
 
+        <MappingTable
+          columns={previewHeaders}
+        />
+
+      </div>
     </div>
   );
 }

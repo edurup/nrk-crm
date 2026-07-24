@@ -116,147 +116,142 @@ const endIndex = startIndex + LEADS_PER_PAGE;
 const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
 
   return (
-    <div className="w-full">
-      <div className="mb-8">
-  <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-    Leads
-  </h1>
+    <div className="w-full p-8 space-y-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+      {/* Heading */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          Leads Management
+        </h1>
+        <p className="text-gray-500 mt-2 text-lg">
+          Manage, assign and track all your leads efficiently.
+        </p>
+      </div>
 
-  <p className="text-gray-500 mt-2 text-lg">
-    Manage, assign and track all your leads.
-  </p>
-</div>
-
-
-
-<LeadToolbar
-  search={search}
-  setSearch={setSearch}
-  source={source}
-  setSource={setSource}
-  status={status}
-  setStatus={setStatus}
-  assignedTo={assignedTo}
-  setAssignedTo={setAssignedTo}
-  course={course}
-  setCourse={setCourse}
-  onAddLead={() => setShowAddLead(true)}
-/>
+      <LeadToolbar
+        search={search}
+        setSearch={setSearch}
+        source={source}
+        setSource={setSource}
+        status={status}
+        setStatus={setStatus}
+        assignedTo={assignedTo}
+        setAssignedTo={setAssignedTo}
+        course={course}
+        setCourse={setCourse}
+        onAddLead={() => setShowAddLead(true)}
+      />
 
       <StatsCards leads={leads} />
 
-<LeadTabs
-  leads={leads}
-  selected={selectedTab}
-  setSelected={setSelectedTab}
-/>
+      <LeadTabs
+        leads={leads}
+        selected={selectedTab}
+        setSelected={setSelectedTab}
+      />
 
-<div className="flex gap-6 items-start">
-
-  <div className="flex-1 min-w-0">
-    {filteredLeads.length === 0 ? (
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 text-center">
-        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
+      <div className="flex gap-6 items-start">
+        <div className="flex-1 min-w-0">
+          {filteredLeads.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-16 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">No leads found</h3>
+              <p className="text-gray-500 text-lg">Try adjusting your filters or add a new lead to get started.</p>
+            </div>
+          ) : (
+            <LeadTable
+              leads={paginatedLeads}
+              setLeads={setLeads}
+              setSelectedLead={setSelectedLead}
+              selectedLead={selectedLead}
+            />
+          )}
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">No leads found</h3>
-        <p className="text-gray-500">Try adjusting your filters or add a new lead to get started.</p>
+
+        {showAddLead && (
+          <AddLeadModal
+            setLeads={setLeads}
+            onClose={() => setShowAddLead(false)}
+          />
+        )}
+
+        <div className="w-[360px] shrink-0 sticky top-6 hidden lg:block">
+          <LeadDetailsDrawer
+            lead={selectedLead}
+            setLeads={setLeads}
+          />
+        </div>
       </div>
-    ) : (
-      <LeadTable
-  leads={paginatedLeads}
-  setLeads={setLeads}
-  setSelectedLead={setSelectedLead}
-  selectedLead={selectedLead}
-/>
-    )}
-  </div>
 
-  {
-  showAddLead && (
-    <AddLeadModal
-      setLeads={setLeads}
-      onClose={() => setShowAddLead(false)}
-    />
-  )
-}
+      {filteredLeads.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6 mt-8">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-gray-600 font-medium">
+              Showing {startIndex + 1}–{Math.min(endIndex, filteredLeads.length)} of {filteredLeads.length} leads
+            </p>
 
-  <div className="w-[360px] shrink-0 sticky top-6 hidden lg:block">
-    <LeadDetailsDrawer
-      lead={selectedLead}
-      setLeads={setLeads}
-    />
-  </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-medium text-sm"
+              >
+                Previous
+              </button>
 
-</div>
-{filteredLeads.length > 0 && (
-  <div className="mt-8 border-t pt-5 flex items-center justify-between">
-    <p className="text-sm text-gray-600">
-      Showing {startIndex + 1}–
-      {Math.min(endIndex, filteredLeads.length)} of {filteredLeads.length} leads
-    </p>
+              {Array.from({ length: totalPages }, (_, i) => {
+                const page = i + 1;
 
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-        disabled={currentPage === 1}
-        className="px-3 py-2 rounded-lg border hover:bg-gray-100 disabled:opacity-40"
-      >
-        Previous
-      </button>
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 2 && page <= currentPage + 2)
+                ) {
+                  return (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-xl border transition-all font-medium text-sm ${
+                        currentPage === page
+                          ? "bg-gradient-to-r from-green-600 to-green-700 text-white border-green-600 shadow-md"
+                          : "hover:bg-gray-50 border-gray-300"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                }
 
-      {Array.from({ length: totalPages }, (_, i) => {
-  const page = i + 1;
+                if (
+                  page === currentPage - 3 ||
+                  page === currentPage + 3
+                ) {
+                  return (
+                    <span key={page} className="px-2 text-gray-400">
+                      ...
+                    </span>
+                  );
+                }
 
-  if (
-    page === 1 ||
-    page === totalPages ||
-    (page >= currentPage - 2 && page <= currentPage + 2)
-  ) {
-    return (
-      <button
-        key={page}
-        onClick={() => setCurrentPage(page)}
-        className={`w-9 h-9 rounded-lg border transition ${
-          currentPage === page
-            ? "bg-green-600 text-white border-green-600"
-            : "hover:bg-gray-100"
-        }`}
-      >
-        {page}
-      </button>
-    );
-  }
+                return null;
+              })}
 
-  if (
-    page === currentPage - 3 ||
-    page === currentPage + 3
-  ) {
-    return (
-      <span key={page} className="px-2">
-        ...
-      </span>
-    );
-  }
-
-  return null;
-})}
-
-      <button
-        onClick={() =>
-          setCurrentPage((p) => Math.min(p + 1, totalPages))
-        }
-        disabled={currentPage === totalPages}
-        className="px-3 py-2 rounded-lg border hover:bg-gray-100 disabled:opacity-40"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-)}
-
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(p + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-medium text-sm"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

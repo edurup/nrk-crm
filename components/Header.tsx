@@ -55,9 +55,8 @@ export default function Header(){
     sticky
     top-0
     z-20
-    shadow-sm
+    shadow-md
     ">
-
 
         <div className="h-10 w-32 relative">
           <Image
@@ -84,6 +83,11 @@ export default function Header(){
             flex
             items-center
             gap-3
+            hover:bg-gray-50
+            px-3
+            py-2
+            rounded-xl
+            transition-all
             "
             >
 
@@ -93,12 +97,13 @@ export default function Header(){
                 w-10
                 h-10
                 rounded-full
-                bg-green-700
+                bg-gradient-to-br from-green-600 to-green-700
                 text-white
                 flex
                 items-center
                 justify-center
                 font-semibold
+                shadow-md
                 "
                 >
 
@@ -134,6 +139,7 @@ export default function Header(){
                 rounded-2xl
                 shadow-2xl
                 overflow-hidden
+                animate-fade-in
                 "
                 >
 
@@ -207,12 +213,13 @@ export default function Header(){
                     ">
                         <span className="
                         text-xs
-                        font-semibold
-                        px-3 py-1 rounded-full
+                        font-bold
+                        px-4 py-2 rounded-full
                         bg-white/20
                         text-white
                         backdrop-blur-sm
                         border border-white/30
+                        shadow-sm
                         ">
                             {user?.role === 'admin' || !user?.role ? '👑 Admin' : '👤 User'}
                         </span>
@@ -241,8 +248,9 @@ export default function Header(){
                     hover:bg-red-50
                     hover:border-red-300
                     transition-all
-                    font-medium
+                    font-semibold
                     shadow-sm
+                    hover:shadow-md
                     ">
                         <LogOut size={18}/>
                         Logout
